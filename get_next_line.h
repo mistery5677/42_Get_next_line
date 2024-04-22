@@ -11,4 +11,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 
+char	*ft_strjoin(char *s1, char *s2);
+int ft_strlen(char *str);
+
 char *get_next_line(int fd);
