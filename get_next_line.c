@@ -47,7 +47,6 @@ char *get_next_line(int fd)
 	bytes =	read(fd, buffer, BUFFER_SIZE);
 	while(bytes > 0)
 	{	
-		str = malloc(BUFFER_SIZE * sizeof(char));
 		str = ft_strjoin(str, buffer);
 		if(!str)
 			return (NULL);
@@ -61,6 +60,7 @@ int main()
 	int txt = open("teste.txt", O_RDONLY);
 	char *teste = get_next_line(txt);	
 	//char	*teste = get_next_line();
-	printf("\n\n resultado: %s\n", teste);
+
+	printf("final: %s\n", teste);
 	free(teste);
 }
