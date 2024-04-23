@@ -13,6 +13,6 @@
 
 int	ft_strlen(char *str);
 int found_newline(char *buffer);
-char	*ft_strjoin(char *s1, char *s2, int bytes);
+char	*ft_strjoin(char *s1, char *s2);
 
 char *get_next_line(int fd);
