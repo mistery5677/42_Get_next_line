@@ -3,7 +3,7 @@
 #endif
 
 #ifndef BUFFER_SIZE
-#define BUFFER_SIZE 5
+#define BUFFER_SIZE 1
 #endif
 
 #include <stdlib.h>
@@ -12,7 +12,11 @@
 #include <fcntl.h>
 
 int	ft_strlen(char *str);
-int found_newline(char *buffer);
-char	*ft_strjoin(char *s1, char *s2);
+char *ft_strjoin(char *s1, char *s2);
+char *get_line(char *buffer);
+int find_newline(char *str);
+char *scan_fd(char *str, int fd);
+int find_newline(char *buffer);
+void	ft_strcpy(char *str, char *buffer);
 
 char *get_next_line(int fd);
