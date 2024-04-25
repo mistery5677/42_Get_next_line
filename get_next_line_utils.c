@@ -1,6 +1,6 @@
 #include "get_next_line.h"
 
-int	ft_strlen(char *str)
+size_t	ft_strlen(char *str)
 {
 	int	i;
 
@@ -15,25 +15,26 @@ int	ft_strlen(char *str)
 char *ft_strjoin(char *s1, char *s2)
 {
 	char *str;
-	int 	len_s1;
-	int 	len_s2;
+	int j;
 	int	i;
 
-	len_s1 = ft_strlen(s1);
-	len_s2 = ft_strlen(s2);
-	i = -1;
-	str = malloc(((len_s1 + len_s2) + 1) * sizeof(char));
+	if (!s1)
+	{
+		s1 = malloc(sizeof(char) + 1);
+		if (!s1)
+			return 0;
+		s1[0] = '\0';
+	}
+	str = malloc(((ft_strlen(s1) + ft_strlen(s2)) + 1) * sizeof(char));
 	if(!str)
 		return NULL;
+	i = -1;
 	while(s1[++i])
 		str[i] = s1[i];
-	i = -1;
-	while(s2[++i])
-	{
-		str[len_s1] = s2[i];
-		len_s1++;
-	}
-	str[len_s1] = '\0';
+	j = -1;
+	while(s2[++j])
+		str[i + j] = s2[j];
+	str[i + j] = '\0';
 	free(s1);
 	return str;
 }
@@ -76,3 +77,42 @@ void	ft_strcpy(char *str, char *buffer)
 	str[i] = '\0';
 }
 
+char	*ft_strchr(const char *s, int c)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] != (unsigned char)c && s[i] != '\0')
+		i++;
+	if (s[i] == (unsigned char)c)
+		return ((char *)&s[i]);
+	else
+		return (NULL);
+}
+
+char	*ft_substr(char *s, unsigned int start, size_t len)
+{
+	size_t	i;
+	char	*res;
+
+	i = 0;
+	if (!s)
+		return (0);
+	if (start > ft_strlen(s))
+	{
+		res = malloc(sizeof(char) * (1));
+		if (!res)
+			return (NULL);
+		res[0] = '\0';
+		return (res);
+	}
+	if (ft_strlen(s) - start < len)
+		len = ft_strlen(s) - start;
+	res = malloc(sizeof(char) * (len + 1));
+	if (!res)
+		return (NULL);
+	while (start < ft_strlen(s) && i < len && s[start])
+		res[i++] = s[start++];
+	res[i] = '\0';
+	return (res);
+}

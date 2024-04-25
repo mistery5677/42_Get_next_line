@@ -1,4 +1,35 @@
 #include "get_next_line.h"
+#include <stdio.h>
+
+char	*ft_free(char **str)
+{
+	free(*str);
+	*str = NULL;
+	return (NULL);
+}
+
+char	*clean_storage(char *storage)
+{
+	char	*new_storage;
+	char	*ptr;
+	int		len;
+
+	ptr = ft_strchr(storage, '\n');
+	if (!ptr)
+	{
+		new_storage = NULL;
+		return (ft_free(&storage));
+	}
+	else
+		len = (ptr - storage) + 1;
+	if (!storage[len])
+		return (ft_free(&storage));
+	new_storage = ft_substr(storage, len, ft_strlen(storage) - len);
+	ft_free(&storage);
+	if (!new_storage)
+		return (NULL);
+	return (new_storage);
+}
 
 char *get_line(char *buffer)
 {
@@ -25,12 +56,12 @@ char *scan_fd(char *str, int fd)
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if(!buffer)
 		return NULL;
-	while(bytes > 0)
+	while(bytes > 0 && !ft_strchr(buffer, '\n'))
 	{
 		bytes = read(fd, buffer, BUFFER_SIZE);
 		if (bytes == -1)
 		{
-			free(buffer);
+			free(str);
 			return NULL;
 		}
 		buffer[bytes] = '\0';
@@ -56,6 +87,7 @@ char	*get_next_line(int fd)
 	if (!buffer)
 		return NULL;
 	str = get_line(buffer);
+	buffer = clean_storage(buffer);
 	return str;
 }
 
