@@ -18,17 +18,17 @@ char *ft_strjoin(char *s1, char *s2)
 	int j;
 	int	i;
 
+	i = -1;
 	if (!s1)
 	{
 		s1 = malloc(sizeof(char) + 1);
 		if (!s1)
-			return 0;
-		s1[0] = '\0';
+			return (0);
+		s1[0] = 0;
 	}
 	str = malloc(((ft_strlen(s1) + ft_strlen(s2)) + 1) * sizeof(char));
 	if(!str)
 		return NULL;
-	i = -1;
 	while(s1[++i])
 		str[i] = s1[i];
 	j = -1;
@@ -39,45 +39,7 @@ char *ft_strjoin(char *s1, char *s2)
 	return str;
 }
 
-int find_newline(char *buffer)
-{
-	int i;
-	int len;
-
-	len = 0;
-	i = -1;
-	while(buffer[++i])
-	{
-		if (buffer[i] == '\n')
-		{
-			len++;
-			return len;
-		}
-		else
-			len++;
-	}
-	return len;
-}
-
-void	ft_strcpy(char *str, char *buffer)
-{
-	size_t	i;
-
-	i = -1;
-	while (buffer[++i])
-	{
-		if(buffer[i] == '\n')
-		{
-			str[i++] = '\n';
-			str[i] = '\0'; 
-			return ;
-		}
-		str[i] = buffer[i];
-	}
-	str[i] = '\0';
-}
-
-char	*ft_strchr(const char *s, int c)
+char	*ft_strchr(char *s, int c)
 {
 	int	i;
 
@@ -90,29 +52,47 @@ char	*ft_strchr(const char *s, int c)
 		return (NULL);
 }
 
-char	*ft_substr(char *s, unsigned int start, size_t len)
+char	*ft_substr(char  *s, unsigned int start, size_t len)
 {
-	size_t	i;
-	char	*res;
+	char		*substr;
+	size_t		i;
 
 	i = 0;
 	if (!s)
-		return (0);
-	if (start > ft_strlen(s))
-	{
-		res = malloc(sizeof(char) * (1));
-		if (!res)
-			return (NULL);
-		res[0] = '\0';
-		return (res);
-	}
-	if (ft_strlen(s) - start < len)
-		len = ft_strlen(s) - start;
-	res = malloc(sizeof(char) * (len + 1));
-	if (!res)
 		return (NULL);
-	while (start < ft_strlen(s) && i < len && s[start])
-		res[i++] = s[start++];
-	res[i] = '\0';
-	return (res);
+	if (start >= ft_strlen(s))
+		return (ft_strdup(""));
+	if (ft_strlen(s + start) < len)
+		len = ft_strlen(s + start);
+	substr = malloc((len + 1) * sizeof(char));
+	if (substr == NULL)
+		return (NULL);
+	while (i + start < ft_strlen(s) && i < len)
+	{
+		substr[i] = s[start + i];
+		i++;
+	}
+	substr[i] = '\0';
+	return (substr);
+}
+
+
+char	*ft_strdup(char *src)
+{
+	char	*dup;
+	int		i;
+	int		str_len;
+
+	i = 0;
+	str_len = ft_strlen(src);
+	dup = malloc((str_len + 1) * sizeof(char));
+	if (!(src) || dup == NULL)
+		return (NULL);
+	while (src[i])
+	{
+		dup[i] = src[i];
+		i++;
+	}
+	dup[i] = '\0';
+	return (dup);
 }

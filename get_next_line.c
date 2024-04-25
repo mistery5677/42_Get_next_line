@@ -1,49 +1,44 @@
 #include "get_next_line.h"
 #include <stdio.h>
 
-char	*ft_free(char **str)
+char *reset_buffer(char *buffer)
 {
-	free(*str);
-	*str = NULL;
-	return (NULL);
-}
+	int i;
+	char *end;
+	char *str;
 
-char	*clean_storage(char *storage)
-{
-	char	*new_storage;
-	char	*ptr;
-	int		len;
-
-	ptr = ft_strchr(storage, '\n');
-	if (!ptr)
+	end = ft_strchr(buffer, '\n');
+	if(!end)
 	{
-		new_storage = NULL;
-		return (ft_free(&storage));
+		free(buffer);
+		return NULL;
 	}
 	else
-		len = (ptr - storage) + 1;
-	if (!storage[len])
-		return (ft_free(&storage));
-	new_storage = ft_substr(storage, len, ft_strlen(storage) - len);
-	ft_free(&storage);
-	if (!new_storage)
-		return (NULL);
-	return (new_storage);
+		i = (end - buffer) + 1;
+	if(!buffer[i])
+	{
+		free(buffer);
+		return NULL;
+	}
+	str = ft_substr(buffer, i , ft_strlen(buffer) - i);
+	free(buffer);
+	if (!str)
+		return NULL;
+	return str;
 }
 
 char *get_line(char *buffer)
 {
-	int str_len;
+	int i;
 	char *new_str;
+	char *end;
 
-	str_len = find_newline(buffer);
-	new_str = malloc((str_len + 1) * sizeof(char));
-	if (!new_str)
-		return NULL;
-	ft_strcpy(new_str, buffer);
-	new_str[str_len] = '\0';
-	free(buffer);
-	return new_str;
+	end = ft_strchr(buffer, '\n');
+	i = (end - buffer) + 1;
+	new_str = ft_substr(buffer, 0, i);
+	if(!new_str)
+		return (NULL);
+	return (new_str);
 }
 
 char *scan_fd(char *str, int fd)
@@ -51,28 +46,26 @@ char *scan_fd(char *str, int fd)
 	char *buffer;
 	int bytes;
 
-	buffer = NULL;
-	bytes = 1;
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if(!buffer)
 		return NULL;
-	while(bytes > 0 && !ft_strchr(buffer, '\n'))
+	buffer[0] = '\0';
+	bytes = 1;
+	while(bytes > 0  && !ft_strchr(buffer, '\n'))
 	{
 		bytes = read(fd, buffer, BUFFER_SIZE);
-		if (bytes == -1)
+		if(bytes > 0)
 		{
-			free(str);
-			return NULL;
-		}
-		buffer[bytes] = '\0';
-		str = ft_strjoin(str, buffer);
-		if(!str)
-		{
-			free (buffer);
-			return NULL;
+			buffer[bytes] = '\0';
+			str = ft_strjoin(str, buffer);
 		}
 	}
 	free (buffer);
+	if (bytes == -1)
+	{
+		free(str);
+		return NULL;
+	}
 	return str;
 }
 
@@ -87,11 +80,11 @@ char	*get_next_line(int fd)
 	if (!buffer)
 		return NULL;
 	str = get_line(buffer);
-	buffer = clean_storage(buffer);
+	buffer = reset_buffer(buffer);
 	return str;
 }
 
-int main()
+/* int main()
 {
 	int txt = open("teste.txt", O_RDONLY);
 	char *teste = get_next_line(txt);
@@ -99,4 +92,4 @@ int main()
 	printf("final: %s\n", teste);
 	free(teste);
 	close(txt);
-}
+} */
