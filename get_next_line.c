@@ -15,7 +15,7 @@ char	*reset_buffer(char *buffer)
 	}
 	else
 		i = (end - buffer) + 1;
-	printf("end_str = %s\n end_char = %c\n", end, end[i]);
+	// printf("end_str = %s\n end_char = %c\n", end, end[i]);
 	if (!buffer[i])
 	{
 		free(buffer);
@@ -25,8 +25,16 @@ char	*reset_buffer(char *buffer)
 	free(buffer);
 	if (!str)
 		return (NULL);
+	printf("str_len: %zu\n str: %s\n", ft_strlen(str), str);
 	return (str);
 }
+
+/* char *reset_buffer(char *buffer)
+{
+	int end;
+
+	while(buffer[i] )
+} */
 
 char	*get_line(char *buffer)
 {
@@ -80,9 +88,10 @@ char	*get_next_line(int fd)
 	buffer = scan_fd(buffer, fd);
 	if (!buffer)
 		return (NULL);
+	printf("buffer no get next line: %zu\n buffer: %s\n", ft_strlen(buffer), buffer);
 	str = get_line(buffer);
 	buffer = reset_buffer(buffer);
-	return (str);
+	return (str);	
 }
 
 int main()

@@ -74,8 +74,7 @@ char	*ft_substr(char  *s, unsigned int start, size_t len)
 	}
 	substr[i] = '\0';
 	return (substr);
-}
-
+}	
 
 char	*ft_strdup(char *src)
 {
