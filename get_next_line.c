@@ -36,7 +36,7 @@ char *update_buffer(char *buffer)
 	int i;
 
 	end = 0;
-	while(buffer[end])
+	while(buffer[end] && buffer[end] != '\n')
 		end++;
 	if (!buffer[end])
 	{
@@ -44,18 +44,16 @@ char *update_buffer(char *buffer)
 		return NULL;
 	}
 	end++;
-	next_line = malloc((ft_strlen(buffer) - end) * sizeof(char));
+	next_line = (char *)malloc((ft_strlen(buffer) - end) * sizeof(char));
 	if(!next_line)
-	{
-		free(buffer);
 		return NULL;
-	}
 	i = 0;
-	while(buffer[i + end])
+	while(buffer[end])
 	{
 		next_line[i] = buffer[i + end];
 		i++;
 	}
+	next_line[i] = '\0';
 	free (buffer);
 	return next_line;
 }
