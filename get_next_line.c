@@ -29,6 +29,38 @@
 	return (str);
 } */
 
+size_t	find_line_ending(char *str, size_t i)
+{
+	while (str[i] && str[i] != '\n')
+		i++;
+	if (str[i] == '\n')
+		i++;
+	return (i);
+}
+
+char	*get_string(char *str)
+{
+	char	*new_str;
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
+	if (str[i] == '\0')
+		return (free(str), NULL);
+	i = find_line_ending(str, i);
+	new_str = (char *)malloc((ft_strlen(str) - i + 1));
+	if (!new_str)
+		return (free(new_str), NULL);
+	while (str[i])
+		new_str[j++] = str[i++];
+	new_str[j] = '\0';
+	if (!new_str[0])
+		return (free(str), free(new_str), NULL);
+	free(str);
+	return (new_str);
+}
+
 char *update_buffer(char *buffer)
 {
 	char *next_line;
@@ -36,24 +68,30 @@ char *update_buffer(char *buffer)
 	int i;
 
 	end = 0;
-	while(buffer[end] && buffer[end] != '\n')
-		end++;
-	if (!buffer[end])
+	i = 0;
+	if (buffer[end] == '\0')
 	{
 		free(buffer);
 		return NULL;
 	}
-	end++;
-	next_line = (char *)malloc((ft_strlen(buffer) - end) * sizeof(char));
+	while(buffer[end] && buffer[end] != '\n')
+		end++;
+	if (buffer[end] == '\n')
+		end++;
+	next_line = malloc((ft_strlen(buffer) - end + 1) * sizeof(char*));
 	if(!next_line)
+	{
+		free(buffer);
 		return NULL;
-	i = 0;
+	}
 	while(buffer[end])
 	{
 		next_line[i] = buffer[i + end];
 		i++;
 	}
 	next_line[i] = '\0';
+	if (!next_line[0])
+		return (free(buffer), free(next_line), NULL);
 	free (buffer);
 	return next_line;
 }
