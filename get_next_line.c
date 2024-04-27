@@ -1,7 +1,7 @@
 #include "get_next_line.h"
 #include <stdio.h>
 
-char	*reset_buffer(char *buffer)
+/* char	*update_buffer(char *buffer)
 {
 	char	*end;
 	char	*str;
@@ -25,16 +25,40 @@ char	*reset_buffer(char *buffer)
 	free(buffer);
 	if (!str)
 		return (NULL);
-	printf("str_len: %zu\n str: %s\n", ft_strlen(str), str);
+	// printf("str_len: %zu\n str: %s\n", ft_strlen(str), str);
 	return (str);
-}
-
-/* char *reset_buffer(char *buffer)
-{
-	int end;
-
-	while(buffer[i] )
 } */
+
+char *update_buffer(char *buffer)
+{
+	char *next_line;
+	int end;
+	int i;
+
+	end = 0;
+	while(buffer[end])
+		end++;
+	if (!buffer[end])
+	{
+		free(buffer);
+		return NULL;
+	}
+	end++;
+	next_line = malloc((ft_strlen(buffer) - end) * sizeof(char));
+	if(!next_line)
+	{
+		free(buffer);
+		return NULL;
+	}
+	i = 0;
+	while(buffer[i + end])
+	{
+		next_line[i] = buffer[i + end];
+		i++;
+	}
+	free (buffer);
+	return next_line;
+}
 
 char	*get_line(char *buffer)
 {
@@ -88,19 +112,19 @@ char	*get_next_line(int fd)
 	buffer = scan_fd(buffer, fd);
 	if (!buffer)
 		return (NULL);
-	printf("buffer no get next line: %zu\n buffer: %s\n", ft_strlen(buffer), buffer);
+	// printf("buffer no get next line: %zu\n buffer: %s\n", ft_strlen(buffer), buffer);
 	str = get_line(buffer);
-	buffer = reset_buffer(buffer);
+	buffer = update_buffer(buffer);
 	return (str);	
 }
 
-int main()
+/* int main()
 {
 	int txt = open("teste.txt", O_RDONLY);
 	char *teste ;
 	teste = get_next_line(txt);
 	int count = 1;
-	while(teste)
+	while(teste && count < 6)
 	{
 		printf("final: [%d]	%s\n", count, teste)	;
 		free(teste);
@@ -108,4 +132,4 @@ int main()
 		count++;
 	}
 	close(txt);
-}
+} */
