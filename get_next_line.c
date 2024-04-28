@@ -1,66 +1,6 @@
 #include "get_next_line.h"
 #include <stdio.h>
 
-/* char	*update_buffer(char *buffer)
-{
-	char	*end;
-	char	*str;
-	int		i;
-
-	end = ft_strchr(buffer, '\n');
-	if (!end)
-	{
-		free(buffer);
-		return (NULL);
-	}
-	else
-		i = (end - buffer) + 1;
-	// printf("end_str = %s\n end_char = %c\n", end, end[i]);
-	if (!buffer[i])
-	{
-		free(buffer);
-		return (NULL);
-	}
-	str = ft_substr(buffer, i, ft_strlen(buffer) - i);
-	free(buffer);
-	if (!str)
-		return (NULL);
-	// printf("str_len: %zu\n str: %s\n", ft_strlen(str), str);
-	return (str);
-} */
-
-/* size_t	find_line_ending(char *str, size_t i)
-{
-	while (str[i] && str[i] != '\n')
-		i++;
-	if (str[i] == '\n')
-		i++;
-	return (i);
-}
-
-char	*update_buffer(char *str)
-{
-	char	*new_str;
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	j = 0;
-	if (str[i] == '\0')
-		return (free(str), NULL);
-	i = find_line_ending(str, i);
-	new_str = (char *)malloc((ft_strlen(str) - i + 1));
-	if (!new_str)
-		return (free(new_str), NULL);
-	while (str[i])
-		new_str[j++] = str[i++];
-	new_str[j] = '\0';
-	if (!new_str[0])
-		return (free(str), free(new_str), NULL);
-	free(str);
-	return (new_str);
-} */
-
 char *update_buffer(char *buffer)
 {
 	char *next_line;
@@ -148,7 +88,6 @@ char	*get_next_line(int fd)
 	buffer = scan_fd(buffer, fd);
 	if (!buffer)
 		return (NULL);
-	// printf("buffer no get next line: %zu\n buffer: %s\n", ft_strlen(buffer), buffer);
 	str = get_line(buffer);
 	buffer = update_buffer(buffer);
 	return (str);	
