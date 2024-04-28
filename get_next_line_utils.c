@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mistery576 <mistery576@student.42.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/28 22:21:36 by mistery576        #+#    #+#             */
+/*   Updated: 2024/04/28 22:41:09 by mistery576       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 size_t	ft_strlen(char *str)
@@ -6,17 +18,17 @@ size_t	ft_strlen(char *str)
 
 	i = 0;
 	if (!str)
-		return 0;
+		return (0);
 	while (str[i])
 		i++;
 	return (i);
 }
 
-char *ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
-	char *str;
-	int j;
-	int	i;
+	char	*str;
+	int		j;
+	int		i;
 
 	i = -1;
 	if (!s1)
@@ -27,16 +39,16 @@ char *ft_strjoin(char *s1, char *s2)
 		s1[0] = 0;
 	}
 	str = malloc(((ft_strlen(s1) + ft_strlen(s2)) + 1) * sizeof(char));
-	if(!str)
-		return NULL;
-	while(s1[++i])
+	if (!str)
+		return (NULL);
+	while (s1[++i])
 		str[i] = s1[i];
 	j = -1;
-	while(s2[++j])
+	while (s2[++j])
 		str[i + j] = s2[j];
 	str[i + j] = '\0';
 	free(s1);
-	return str;
+	return (str);
 }
 
 char	*ft_strchr(char *s, int c)
@@ -52,10 +64,10 @@ char	*ft_strchr(char *s, int c)
 		return (NULL);
 }
 
-char	*ft_substr(char  *s, unsigned int start, size_t len)
+char	*ft_substr(char *s, unsigned int start, size_t len)
 {
-	char		*substr;
-	size_t		i;
+	char	*substr;
+	size_t	i;
 
 	i = 0;
 	if (!s)
@@ -74,7 +86,7 @@ char	*ft_substr(char  *s, unsigned int start, size_t len)
 	}
 	substr[i] = '\0';
 	return (substr);
-}	
+}
 
 char	*ft_strdup(char *src)
 {

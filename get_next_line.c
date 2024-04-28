@@ -1,30 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mistery576 <mistery576@student.42.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/28 22:21:50 by mistery576        #+#    #+#             */
+/*   Updated: 2024/04/28 22:40:16 by mistery576       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 #include <stdio.h>
 
-char *update_buffer(char *buffer)
+char	*update_buffer(char *buffer)
 {
-	char *next_line;
-	size_t end;
-	size_t i;
+	char	*next_line;
+	size_t	end;
+	size_t	i;
 
 	end = 0;
 	i = 0;
 	if (buffer[end] == '\0')
-	{
-		free(buffer);
-		return NULL;
-	}
-	while(buffer[end] && buffer[end] != '\n')
+		return (free(buffer), NULL);
+	while (buffer[end] && buffer[end] != '\n')
 		end++;
 	if (buffer[end] == '\n')
 		end++;
-	next_line = malloc((ft_strlen(buffer) - end + 1) * sizeof(char*));
-	if(!next_line)
-	{
-		free(next_line);
-		return NULL;
-	}
-	while(buffer[end + i])
+	next_line = malloc((ft_strlen(buffer) - end + 1) * sizeof(char *));
+	if (!next_line)
+		return (free(next_line), NULL);
+	while (buffer[end + i])
 	{
 		next_line[i] = buffer[end + i];
 		i++;
@@ -32,15 +38,14 @@ char *update_buffer(char *buffer)
 	next_line[i] = '\0';
 	if (!next_line[0])
 		return (free(buffer), free(next_line), NULL);
-	free (buffer);
-	return next_line;
+	return (free(buffer), next_line);
 }
 
 char	*get_line(char *buffer)
 {
 	char	*new_str;
 	char	*end;
-	size_t		i;
+	size_t	i;
 
 	end = ft_strchr(buffer, '\n');
 	i = (ft_strlen(buffer) - ft_strlen(end)) + 1;
@@ -53,7 +58,7 @@ char	*get_line(char *buffer)
 char	*scan_fd(char *str, int fd)
 {
 	char	*buffer;
-	int	bytes;
+	int		bytes;
 
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
@@ -90,7 +95,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	str = get_line(buffer);
 	buffer = update_buffer(buffer);
-	return (str);	
+	return (str);
 }
 
 /* int main()
