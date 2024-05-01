@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mistery576 <mistery576@student.42.fr>      +#+  +:+       +#+        */
+/*   By: miafonso <miafonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 22:21:50 by mistery576        #+#    #+#             */
-/*   Updated: 2024/04/28 22:40:16 by mistery576       ###   ########.fr       */
+/*   Updated: 2024/05/01 11:44:30 by miafonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 char	*update_buffer(char *buffer)
 {
@@ -21,8 +20,6 @@ char	*update_buffer(char *buffer)
 
 	end = 0;
 	i = 0;
-	if (buffer[end] == '\0')
-		return (free(buffer), NULL);
 	while (buffer[end] && buffer[end] != '\n')
 		end++;
 	if (buffer[end] == '\n')
@@ -98,18 +95,10 @@ char	*get_next_line(int fd)
 	return (str);
 }
 
-/* int main()
+#include <stdio.h>
+int main()
 {
-	int txt = open("teste.txt", O_RDONLY);
-	char *teste ;
-	teste = get_next_line(txt);
-	int count = 1;
-	while(teste && count < 6)
-	{
-		printf("final: [%d]	%s\n", count, teste)	;
-		free(teste);
-		teste = get_next_line(txt);
-		count++;
-	}
-	close(txt);
-} */
+	char *str = get_next_line(42);
+	
+	printf("str: %s\n", str);
+}

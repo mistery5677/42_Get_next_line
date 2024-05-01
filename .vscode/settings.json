@@ -5,6 +5,8 @@
                 "stdlib.h": "c",
                 "sstream": "c",
                 "types.h": "c",
-                "uio.h": "c"
+                "uio.h": "c",
+                "fcntl.h": "c",
+                "unistd.h": "c"
         }
 }

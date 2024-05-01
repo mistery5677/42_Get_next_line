@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mistery576 <mistery576@student.42.fr>      +#+  +:+       +#+        */
+/*   By: miafonso <miafonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 22:22:06 by mistery576        #+#    #+#             */
-/*   Updated: 2024/04/28 22:54:51 by mistery576       ###   ########.fr       */
+/*   Updated: 2024/04/30 15:57:29 by miafonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include <stdio.h>
+#include "get_next_line_bonus.h"
 
 char	*update_buffer(char *buffer)
 {
@@ -88,7 +87,7 @@ char	*get_next_line(int fd)
 	static char	*buffer[FOPEN_MAX];
 	char		*str;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0))
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) || fd > FOPEN_MAX)
 		return (NULL);
 	buffer[fd] = scan_fd(buffer[fd], fd);
 	if (!buffer[fd])
@@ -100,16 +99,28 @@ char	*get_next_line(int fd)
 
 /* int main()
 {
-	int txt = open("teste.txt", O_RDONLY);
-	char *teste ;
-	teste = get_next_line(txt);
-	int count = 1;
-	while(teste && count < 6)
+	int fd[3];
+
+	fd[0] = open("test1.txt", O_RDONLY);
+	fd[2] = open("test3.txt", O_RDONLY);
+	fd[1] = open("test2.txt", O_RDONLY);
+	char *test1 = get_next_line(fd[0]);
+	char *test2 = get_next_line(fd[1]);
+	char *test3 = get_next_line(fd[2]);
+	while(test1 || test2 || test3)
 	{
-		printf("final: [%d]	%s\n", count, teste)	;
-		free(teste);
-		teste = get_next_line(txt);
-		count++;
+		printf("test1: %s\n", test1);
+		printf("test2: %s\n", test2);
+		printf("test3: %s\n", test3);
+		test1 = get_next_line(fd[0]);
+		test2 = get_next_line(fd[1]);
+		test3 = get_next_line(fd[2]);
 	}
-	close(txt);
+	free(test1);
+	free(test2);
+	free(test3);
+
+	close(fd[0]);
+	close(fd[1]);
+	close(fd[2]);
 } */
