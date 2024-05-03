@@ -85,7 +85,7 @@ char	*get_next_line(int fd)
 	static char	*buffer;
 	char		*str;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0))
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buffer = scan_fd(buffer, fd);
 	if (!buffer)
@@ -97,7 +97,9 @@ char	*get_next_line(int fd)
 
 /* int main()
 {
-	char *str = get_next_line(0);
+	int fd = open("test1.txt", O_RDONLY);
+	char *str = get_next_line(fd);
 	
 	printf("str: %s\n", str);
+	free(str);
 } */

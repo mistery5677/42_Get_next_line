@@ -87,7 +87,7 @@ char	*get_next_line(int fd)
 	static char	*buffer[FOPEN_MAX];
 	char		*str;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) || fd > FOPEN_MAX)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > FOPEN_MAX)
 		return (NULL);
 	buffer[fd] = scan_fd(buffer[fd], fd);
 	if (!buffer[fd])
