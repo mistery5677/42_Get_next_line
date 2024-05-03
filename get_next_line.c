@@ -6,7 +6,7 @@
 /*   By: miafonso <miafonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 22:21:50 by mistery576        #+#    #+#             */
-/*   Updated: 2024/05/01 11:44:30 by miafonso         ###   ########.fr       */
+/*   Updated: 2024/05/02 14:41:50 by miafonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*update_buffer(char *buffer)
 		end++;
 	if (buffer[end] == '\n')
 		end++;
-	next_line = malloc((ft_strlen(buffer) - end + 1) * sizeof(char *));
+	next_line = malloc((ft_strlen(buffer) - end + 1) * sizeof(char));
 	if (!next_line)
 		return (free(next_line), NULL);
 	while (buffer[end + i])
@@ -95,10 +95,9 @@ char	*get_next_line(int fd)
 	return (str);
 }
 
-#include <stdio.h>
-int main()
+/* int main()
 {
-	char *str = get_next_line(42);
+	char *str = get_next_line(0);
 	
 	printf("str: %s\n", str);
-}
+} */
