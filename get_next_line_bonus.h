@@ -6,7 +6,7 @@
 /*   By: miafonso <miafonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 22:22:04 by mistery576        #+#    #+#             */
-/*   Updated: 2024/04/30 09:17:00 by miafonso         ###   ########.fr       */
+/*   Updated: 2024/05/06 09:19:19 by miafonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 size_t	ft_strlen(char *str);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strchr(char *s, int c);
+char	*get_next_line(int fd);
 char	*ft_substr(char *s, unsigned int start, size_t len);
 char	*ft_strdup(char *src);
-char	*get_next_line(int fd);
 
 #endif

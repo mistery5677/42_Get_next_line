@@ -6,7 +6,7 @@
 /*   By: miafonso <miafonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 22:22:06 by mistery576        #+#    #+#             */
-/*   Updated: 2024/05/02 14:41:41 by miafonso         ###   ########.fr       */
+/*   Updated: 2024/05/07 14:04:57 by miafonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*update_buffer(char *buffer)
 		end++;
 	next_line = malloc((ft_strlen(buffer) - end + 1) * sizeof(char));
 	if (!next_line)
-		return (free(next_line), NULL);
+		return (free(buffer), NULL);
 	while (buffer[end + i])
 	{
 		next_line[i] = buffer[end + i];
